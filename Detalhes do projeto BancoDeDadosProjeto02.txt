@@ -1,0 +1,79 @@
+Para o desafio 02, com base nas duas tabela irei realizar os comandos expressados no desafio.
+OBS. A tabela é a mesma tabela do desafio 01
+
+CREATE TABLE `departamento` (
+  `IdDepto` int(11) NOT NULL,
+  `NomeDepto` varchar(25) NOT NULL,
+  `Gerente` int(11) NOT NULL,
+  `Divisao` varchar(20) NOT NULL,
+  `Local` varchar(25) NOT NULL
+)
+
+CREATE TABLE `empregado` (
+  `IdEmpregado` int(11) NOT NULL,
+  `NomeEmpregado` varchar(20) NOT NULL,
+  `IdDepto` int(11) DEFAULT NULL,
+  `Cargo` varchar(6) NOT NULL,
+  `Tempo_Emp` int(11) DEFAULT NULL,
+  `Salario` decimal(10,2) DEFAULT NULL,
+  `Comissao` decimal(10,2) DEFAULT NULL
+)
+
+
+1. Recuperações simples com SELECT Statement;
+SELECT * FROM departamento;
+SELECT * FROM empregado;
+
+
+2. Filtros com WHERE Statement;
+SELECT * FROM empregado WHERE Salario * 12 > 45000;
+SELECT * FROM departamento WHERE Divisao = 'Tecnologia';
+
+
+3. Crie expressões para gerar atributos derivados;
+SELECT NomeEmpregado, Salario * 12 AS SalarioAnual FROM empregado;
+SELECT AVG(Tempo_Emp) AS MediaTempoEmprego FROM empregado;
+
+
+4. Defina ordenações dos dados com ORDER BY;
+SELECT * FROM empregado ORDER BY Salario DESC;
+SELECT * FROM departamento ORDER BY NomeDepto;
+
+
+5. Condições de filtros aos grupos – HAVING Statement;
+SELECT IdDepto, AVG(Salario * 12) AS MediaSalarioAnual
+FROM empregado
+GROUP BY IdDepto
+HAVING AVG(Salario * 12) > 35000;
+
+
+6. Crie junções entre tabelas para fornecer uma perspectiva mais complexa dos dados;
+SELECT e.NomeEmpregado, e.Cargo, d.NomeDepto
+FROM empregado e
+JOIN departamento d ON e.IdDepto = d.IdDepto;
+
+SELECT d.NomeDepto, e.NomeEmpregado AS Gerente
+FROM departamento d
+JOIN empregado e ON d.Gerente = e.IdEmpregado;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
